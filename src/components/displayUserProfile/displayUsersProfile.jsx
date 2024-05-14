@@ -1,37 +1,37 @@
-import React from "react";
+
+
+import {
+  FormLabel,
+  Input,
+  HStack,
+  VStack,
+  Button,
+  Divider,
+  Text,
+  Box,
+} from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
-import { VStack, Text } from "@chakra-ui/react";
 
-const DisplayUsersProfile = async ({ id }) => {
-
-
-    
-  const userByUsername = await fetchUserByUsername(id);
-
+const DisplayUsersProfile = async ({  userByUsername }) => {
   return (
     <>
-      {!userByUsername ? (
-        <div>
-          <text>
-            <VStack mt={10}>
-              <Text>No user</Text>
-            </VStack>
-          </text>
-        </div>
-      ) : (
-        <div>
-          <text>
-            <VStack mt={10}>
-              <Text>{userByUsername.username}</Text>
+      <VStack>
+        <Text>{userByUsername.username}</Text>
+        {userByUsername.performance_data.map((data, index) => (
+  <div key={index}>
+    <p>{data.date}</p>
+    <p>{data}</p>
+  </div>
+))}
 
-              <Text>{userByUsername.id}</Text>
-              <Text>{userByUsername.password}</Text>
+           
 
-              <Text>{userByUsername.email}</Text>
-            </VStack>
-          </text>
-        </div>
-      )}
+        <Text>
+            Show all Progress
+            
+        </Text>
+
+      </VStack>
     </>
   );
 };
