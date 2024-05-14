@@ -60,16 +60,37 @@ export const signUp = async (previousState, formData) => {
 };
 
 export const login = async (prevState, formData) => {
-  const { username, password } = Object.fromEntries(formData);
+  const { username, password, email } = Object.fromEntries(formData);
 
   try {
-    await signIn("credentials", { username, password });
+    await connectToDB();
+    // Custom validation for username
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(username)) {
+      return { error: "Username must contain only letters and numbers" };
+    }
+
+    // Custom validation for email format
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+      return { error: "Email must be valid" };
+    }
+
+    // Assuming connectToDB returns a promise that resolves when the connection is established.
+    const userByUsername = await User.findOne({ username: username });
+
+    if (
+      username === userByUsername.username &&
+      password === userByUsername.password &&
+      email === userByUsername.email
+    ) {
+      return { success: true };
+    } else {
+      return { error: "Invalid username, password, or email" };
+    }
   } catch (err) {
     console.log(err);
 
-    if (err.message.includes("CredentialsSignin")) {
-      return { error: "Invalid username or password" };
-    }
-    throw err;
+    return { error: "An error occurred while processing your request" };
   }
 };

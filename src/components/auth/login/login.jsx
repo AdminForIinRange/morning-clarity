@@ -19,7 +19,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Login = () => {
-  const [state, formAction] = useFormState(addUser, undefined);
+  const [state, formAction] = useFormState(login, undefined);
   const router = useRouter();
   const [username, setUsername] = useState(""); // State to hold the username
 
