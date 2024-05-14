@@ -1,18 +1,22 @@
+"use client";
+
 import { Box } from "@chakra-ui/react";
 
 import { fetchUser, fetchUsers } from '@/lib/data';
-const DashboardPage =  () => {
+import { useRouter } from "next/navigation";
 
+const DashboardPage =  () => {
+  const router = useRouter();
+
+
+  router.push("/login");
+  localStorage.removeItem("token")
   
 
 
   return (
     <>
     
-      <Box px={["2", "2", "5", "5", "5"]} pl={["2", "2", "5", "12", "12"]}>
-
-        <h1>   </h1>
-      </Box>
     </>
   );
 };

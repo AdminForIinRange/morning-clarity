@@ -1,6 +1,6 @@
 "use client";
 
-import { addUser } from "@/lib/actions";
+import { signUp } from "@/lib/actions";
 import {
   FormLabel,
   Input,
@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 
 
 const SignUp = () => {
-  const [state, formAction] = useFormState(addUser, undefined);
+  const [state, formAction] = useFormState(signUp, undefined);
   const router = useRouter();
   const [username, setUsername] = useState(""); // State to hold the username
 
@@ -69,34 +69,11 @@ const SignUp = () => {
       <Box
         h={"100%"}
         rounded={"xl"}
-        px={["0px", "20px", "20px", "30px", "30px"]}
+        px={["0px", "0px", "30px", "30px", "30px"]}
         py={10}
       >
-        <VStack justify={"center"} align={"center"} w={"100%"} h={"100%"}>
-          <Text
-            fontSize={["36", "36", "36", "46", "46"]}
-            fontWeight={"700"}
-            textAlign={"center"}
-          >
-            Create an account
-          </Text>
-          <Text
-            fontSize={["18", "18", "18", "20", "20"]}
-            fontWeight={"300"}
-            textAlign={"center"}
-            as={"span"}
-          >
-            Have an Account
-            <Text
-              color={"green.400"}
-              cursor={"pointer"}
-              as={"span"}
-              fontWeight={"500"}
-            >
-              {" "}
-              Login?{" "}
-            </Text>
-          </Text>
+       
+          
 
           <Text
             fontSize={["18", "18", "18", "20", "20"]}
@@ -196,7 +173,7 @@ const SignUp = () => {
               </HStack>
             </VStack>
           </Box>
-        </VStack>
+       
       </Box>
     </>
   );

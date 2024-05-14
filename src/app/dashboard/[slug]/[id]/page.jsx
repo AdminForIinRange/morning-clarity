@@ -5,13 +5,28 @@ import { VStack, Text } from "@chakra-ui/react";
 const GrabUsers = async ({ params }) => {
   console.log(params.id);
   // const user = await fetchUser(params.slug)
+const id = params.id
+
+const userByUsername = await fetchUserByUsername(id);
+
+ 
 
 
-  const userByUsername = await fetchUserByUsername(params.id);
 
 
   return (
-    <div>
+    <>
+
+    {!userByUsername ? (
+      <div>
+      <text>
+        <VStack mt={10}>
+          <Text>No user</Text>
+        </VStack>
+      </text>
+    </div>
+    ) : (
+      <div>
       <text>
         <VStack mt={10}>
           <Text>{userByUsername.username}</Text>
@@ -23,6 +38,10 @@ const GrabUsers = async ({ params }) => {
         </VStack>
       </text>
     </div>
+    )}
+
+    </>
+    
   );
 };
 
