@@ -17,6 +17,7 @@ import { useFormState } from "react-dom";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
+
 const SignUp = () => {
   const [state, formAction] = useFormState(addUser, undefined);
   const router = useRouter();
@@ -25,11 +26,40 @@ const SignUp = () => {
 
 
 
-  useEffect(() => {
-    localStorage.setItem("username", username);
-    console.log(username);
 
-    state?.success && router.push(`/dashboard/${username}`);
+
+  useEffect(() => {
+
+    function hash(str) {
+        let hash = 0;
+        const now = Date.now(); // Get current timestamp
+        if (str.length == 0) return hash;
+        for (let i = 0; i < str.length; i++) {
+            const char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        // Mix in the current timestamp
+        hash = ((hash << 5) - hash) + now;
+        hash = hash & hash; // Convert to 32bit integer
+        // Introduce more complexity
+        hash = hash ^ (hash >>> 16);
+        hash = hash + (hash << 3);
+        hash = hash ^ (hash >>> 12);
+        hash = hash ^ (hash >>> 4);
+        hash = hash * 2057; // Prime number for additional mixing
+        hash = hash ^ (hash >>> 16);
+        return hash;
+    }
+    
+      
+      let hashed= hash(username);
+
+//----------------------------
+
+
+
+    state?.success && router.push(`/dashboard/${hashed}/${username}`);
   }, [state?.success, router, username]);
 
 
