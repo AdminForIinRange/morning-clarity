@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       minlength: 3,
       maxlength: 20,
-      spical_char: false
+      spical_char: false,
     },
     email: {
       type: String,
@@ -58,6 +58,6 @@ const userSchema = new mongoose.Schema(
       ],
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 export const User = mongoose.models?.User || mongoose.model("User", userSchema);

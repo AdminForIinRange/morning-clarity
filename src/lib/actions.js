@@ -59,7 +59,6 @@ export const signUp = async (previousState, formData) => {
   }
 };
 
-
 export const login = async (prevState, formData) => {
   const { username, password } = Object.fromEntries(formData);
 

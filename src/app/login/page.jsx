@@ -32,7 +32,7 @@ const LogInSignUpPage = ({ params }) => {
               fontWeight={"700"}
               textAlign={"center"}
             >
-              { login ? "Login" : "Create an account"}
+              {login ? "Login" : "Create an account"}
             </Text>
             <Text
               fontSize={["18", "18", "18", "20", "20"]}
@@ -40,7 +40,7 @@ const LogInSignUpPage = ({ params }) => {
               textAlign={"center"}
               as={"span"}
             >
-              {!login ? "Have an Account" : "Don't have an Account" } 
+              {!login ? "Have an Account" : "Don't have an Account"}
               <Text
                 color={"green.400"}
                 cursor={"pointer"}
@@ -49,7 +49,7 @@ const LogInSignUpPage = ({ params }) => {
                 onClick={() => setLogin(!login)}
               >
                 {" "}
-              {  !login ? "Login" : "Sign Up"}
+                {!login ? "Login" : "Sign Up"}
               </Text>
             </Text>
 

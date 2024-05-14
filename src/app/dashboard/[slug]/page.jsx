@@ -8,16 +8,13 @@ import { useRouter } from "next/navigation";
 const GrabUsersPage = ({ params }) => {
   const router = useRouter();
 
-
   router.push("/login");
-  localStorage.removeItem("token")
+  localStorage.removeItem("token");
 
   return (
     <div>
       <text>
-        <VStack mt={10}>
-        
-        </VStack>
+        <VStack mt={10}></VStack>
       </text>
     </div>
   );
