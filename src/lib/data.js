@@ -24,7 +24,8 @@ export const fetchUsers = async () => {
     try {
       connectToDB();
       const user = await User.findById(id);
-      return user;
+      return user; 
+      // dont desture when u dont need to {user} = bad, took me 1 horu to find the error
     } catch (err) {
       console.log(err);
       throw new Error("Failed to fetch user!");
