@@ -4,17 +4,7 @@ import { redirect } from "next/navigation";
 import { User } from "./models"; // Importing User model from "./models"
 import { connectToDB } from "./utils"; // Importing connectToDB function from "./utils"
 
-// export const addData = async (userData) => {
-//   try {
-//     connectToDB(); // Establishing connection to the database
 
-//     const newUser = new User(userData); // Creating a new User object with userData
-
-//     await newUser.save(); // Saving the new user to the database
-//   } catch (error) {
-//     console.error("Error adding user data:", error);
-//   }
-// };
 
 export const signUp = async (previousState, formData) => {
   const { username, email, password } = Object.fromEntries(formData); // formData is transformed into an object
@@ -94,3 +84,61 @@ export const login = async (prevState, formData) => {
     return { error: "An error occurred while processing your request" };
   }
 };
+
+
+export const addDatainUser = async (userData) => {
+  
+  try {
+    connectToDB(); // Establishing connection to the database
+
+    const newUser = new User(userData); // Creating a new User object with userData
+
+    await newUser.save(); // Saving the new user to the database
+  } catch (error) {
+    console.error("Error adding user data:", error);
+  }
+};
+
+
+[
+  {
+    username: "john_doe",
+    email: "john.doe@example.com",
+    password: "password123",
+    performance_data: {
+      daily_tasks: [
+        {
+          date: "2024-05-14T08:00:00.000Z",
+          daily_tasks_completed: true,
+          accuracy: 85,
+          points: 50,
+        },
+        {
+          date: "2024-05-13T08:00:00.000Z",
+          daily_tasks_completed: true,
+          accuracy: 90,
+          points: 60,
+        },
+       
+      ],
+      non_daily_tasks: [
+        {
+          daily_tasks_completed: false,
+          accuracy: 0,
+          points: 0,
+        },
+      
+      ],
+      progress_history: [
+        {
+          Overall_days: 10,
+          Overall_points: 600,
+          Overall_tasks_completed: 9,
+          Overall_tasks_accuracy: 88,
+        },
+      
+      ],
+    },
+  },
+  
+]

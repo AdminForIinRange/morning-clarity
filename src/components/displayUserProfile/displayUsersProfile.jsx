@@ -1,5 +1,3 @@
-
-
 import {
   FormLabel,
   Input,
@@ -12,25 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
 
-const DisplayUsersProfile = async ({  userByUsername }) => {
+const DisplayUsersProfile = async ({ id }) => {
+  const userByUsername = await fetchUserByUsername(id);
+
   return (
     <>
       <VStack>
         <Text>{userByUsername.username}</Text>
-        {userByUsername.performance_data.map((data, index) => (
-  <div key={index}>
-    <p>{data.date}</p>
-    <p>{data}</p>
-  </div>
-))}
 
-           
-
-        <Text>
-            Show all Progress
-            
-        </Text>
-
+     
+        {userByUsername.performance_data.daily_tasks.map((task, index) => (
+              <Box key={index} mt="2">
+                <Text>Date: {new Date(task.date).toLocaleDateString()}</Text>
+                <Text>Completed: {task.daily_tasks_completed ? "Yes" : "No"}</Text>
+                <Text>Accuracy: {task.accuracy}%</Text>
+                <Text>Points: {task.points}</Text>
+              </Box>
+            ))}
+        
       </VStack>
     </>
   );
