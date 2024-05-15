@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Chart =  ({}) => {
+const Chart = ({ id }) => {
   const data = [
     { name: "2000", AverageHousePrices: 295000 },
     { name: "2001", AverageHousePrices: 415000 },
@@ -51,22 +51,21 @@ const Chart =  ({}) => {
 
   return (
     <>
-        <ResponsiveContainer width={"98%"} height={265}>
-          <ComposedChart
-            data={data}
-            margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-          >
-            <XAxis dataKey="name" scale="point" stroke="#ffffffff" />
+      <ResponsiveContainer width={"98%"} height={265}>
+        <ComposedChart
+          data={data}
+          margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+        >
+          <XAxis dataKey="name" scale="point" stroke="#ffffffff" />
 
-            <Area
-              type="monotone"
-              dataKey="AverageHousePrices"
-              fill="#ffffffff"
-              stroke="#ffffffff"
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-
+          <Area
+            type="monotone"
+            dataKey="AverageHousePrices"
+            fill="#ffffffff"
+            stroke="#ffffffff"
+          />
+        </ComposedChart>
+      </ResponsiveContainer>
     </>
   );
 };

@@ -1,4 +1,3 @@
-
 import {
   FormLabel,
   Input,
@@ -25,12 +24,7 @@ import {
 } from "recharts";
 import Chart from "../chart/chart";
 
-
-
-
-const DisplayUsersProfile = ({ id, userByUsername, PerformanceData }) => {
-  
-  
+const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
     {
       title: "Daily",
@@ -72,9 +66,6 @@ const DisplayUsersProfile = ({ id, userByUsername, PerformanceData }) => {
   ];
 
   // addDailyTaskCompleted(id, new Date(), 20, 1223230);
-
-
-
 
   return (
     <>
@@ -249,13 +240,19 @@ const DisplayUsersProfile = ({ id, userByUsername, PerformanceData }) => {
               ))}
             </HStack>
 
-            <HStack justify="center" align="center"  h={"100%"} w={"100%"} mt={"-230px"} rounded={"xl"} >
-             <Chart  />
+            <HStack
+              justify="center"
+              align="center"
+              h={"100%"}
+              w={"100%"}
+              mt={"-230px"}
+              rounded={"xl"}
+            >
+              <Chart PerformanceData={PerformanceData} />
             </HStack>
           </Box>
         </HStack>
       </VStack>
-      
     </>
   );
 };

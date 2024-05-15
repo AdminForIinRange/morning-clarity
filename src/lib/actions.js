@@ -87,7 +87,7 @@ export const addDailyTaskCompleted = async (
   username,
   date,
   accuracy,
-  points
+  points,
 ) => {
   try {
     const db = await connectToDB();
@@ -103,7 +103,7 @@ export const addDailyTaskCompleted = async (
           },
         },
       },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (error) {
@@ -115,7 +115,7 @@ export const addNonDailyTaskCompleted = async (
   username,
   date,
   accuracy,
-  points
+  points,
 ) => {
   try {
     const db = await connectToDB();
@@ -124,26 +124,19 @@ export const addNonDailyTaskCompleted = async (
       {
         $push: {
           "performance_data.non_daily_tasks": {
-            
             daily_tasks_completed: true,
             accuracy,
             points,
           },
         },
       },
-      { new: true }
+      { new: true },
     );
     return user;
   } catch (error) {
     console.error("Error adding user data:", error);
   }
 };
-
-
-
-
-
-
 
 [
   {
