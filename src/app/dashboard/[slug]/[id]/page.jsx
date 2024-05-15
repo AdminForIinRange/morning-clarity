@@ -24,7 +24,7 @@ const GrabUsers = async ({ params }) => {
         <>
           <DisplayUsersProfile
             id={id}
-            PerformanceData={PerformanceData}
+          
             userByUsername={userByUsername}
           />
         </>

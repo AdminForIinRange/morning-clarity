@@ -1,3 +1,4 @@
+
 import {
   FormLabel,
   Input,
@@ -23,6 +24,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Chart from "../chart/chart";
+
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
@@ -64,6 +66,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
       title: "Something",
     },
   ];
+
 
   // addDailyTaskCompleted(id, new Date(), 20, 1223230);
 
@@ -248,10 +251,25 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
               mt={"-230px"}
               rounded={"xl"}
             >
-              <Chart PerformanceData={PerformanceData} />
+              <Chart userByUsername={userByUsername} />
             </HStack>
           </Box>
         </HStack>
+         <VStack>
+        <Text>{userByUsername.username}</Text>
+
+     
+        {userByUsername.performance_data.daily_tasks.map((task, index) => (
+              <Box key={index} mt="2">
+                <Text>Date: {new Date(task.date).toLocaleDateString()}</Text>
+                <Text>Completed: {task.daily_tasks_completed ? "Yes" : "No"}</Text>
+                <Text>Accuracy: {task.accuracy}%</Text>
+                <Text>Points: {task.points}</Text>
+              </Box>
+            ))}
+      
+      </VStack> 
+
       </VStack>
     </>
   );
