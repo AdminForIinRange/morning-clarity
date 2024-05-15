@@ -28,7 +28,8 @@ import Chart from "../chart/chart";
 
 
 
-const DisplayUsersProfile = ({ id, userByUsername }) => {
+const DisplayUsersProfile = ({ id, userByUsername, PerformanceData }) => {
+  
   
   const boxes = [
     {
@@ -71,6 +72,7 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
   ];
 
   // addDailyTaskCompleted(id, new Date(), 20, 1223230);
+
 
 
 
@@ -248,7 +250,7 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
             </HStack>
 
             <HStack justify="center" align="center"  h={"100%"} w={"100%"} mt={"-230px"} rounded={"xl"} >
-             <Chart  data={data} />
+             <Chart  />
             </HStack>
           </Box>
         </HStack>

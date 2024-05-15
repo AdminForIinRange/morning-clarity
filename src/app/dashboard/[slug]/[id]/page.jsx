@@ -10,7 +10,7 @@ const GrabUsers = async ({ params }) => {
   const id = params.id;
   const userByUsername = await fetchUserByUsername(id);
 
-  const 
+  const PerformanceData = await userByUsername.performance_data
 
   const ConditionallyRender = () => {
     if (!userByUsername) {
@@ -24,7 +24,7 @@ const GrabUsers = async ({ params }) => {
         <ConditionallyRender />
       ) : (
         <>
-          <DisplayUsersProfile id={id} userByUsername={userByUsername} />
+          <DisplayUsersProfile id={id}  userByUsername={userByUsername} />
         
         </>
       )}
