@@ -1,3 +1,4 @@
+
 import {
   FormLabel,
   Input,
@@ -10,8 +11,25 @@ import {
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
 import { addDailyTaskCompleted } from "@/lib/actions";
+import {
+  ComposedChart,
+  Line,
+  Area,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import Chart from "../chart/chart";
+
+
+
 
 const DisplayUsersProfile = ({ id, userByUsername }) => {
+  
   const boxes = [
     {
       title: "Daily",
@@ -53,6 +71,8 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
   ];
 
   // addDailyTaskCompleted(id, new Date(), 20, 1223230);
+
+
 
   return (
     <>
@@ -205,6 +225,11 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
                   h={"40px"}
                   bgColor={"green.400"}
                   rounded={"xl"}
+                  _hover={{
+                    mx: "10px",
+                    bgColor: "green.300",
+                  }}
+                  transition={"all 0.3s ease-in-out"}
                 >
                   <HStack
                     w={"100%"}
@@ -213,8 +238,6 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
                     align={"center"}
                     fontFamily={"raleway"}
                     cursor={"pointer"}
-                    transition={"all 0.3s ease-in-out"}
-                    _hover={{ bgColor: "green.500" }}
                   >
                     <Text color={"white"} fontWeight={"bold"} fontSize={"14"}>
                       {title}
@@ -223,9 +246,14 @@ const DisplayUsersProfile = ({ id, userByUsername }) => {
                 </Box>
               ))}
             </HStack>
+
+            <HStack justify="center" align="center"  h={"100%"} w={"100%"} mt={"-230px"} rounded={"xl"} >
+             <Chart  data={data} />
+            </HStack>
           </Box>
         </HStack>
       </VStack>
+      
     </>
   );
 };
