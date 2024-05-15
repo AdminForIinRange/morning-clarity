@@ -9,9 +9,14 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
+import { addDailyTaskCompleted } from "@/lib/actions";
 
-const DisplayUsersProfile = async ({ id }) => {
-  const userByUsername = await fetchUserByUsername(id);
+
+
+const DisplayUsersProfile =  ({ id, userByUsername }) => {
+
+
+  addDailyTaskCompleted(id, new Date(), 20, 1223230);
 
   return (
     <>

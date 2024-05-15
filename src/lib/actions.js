@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { User } from "./models"; // Importing User model from "./models"
 import { connectToDB } from "./utils"; // Importing connectToDB function from "./utils"
 
-
-
 export const signUp = async (previousState, formData) => {
   const { username, email, password } = Object.fromEntries(formData); // formData is transformed into an object
 
@@ -85,19 +83,66 @@ export const login = async (prevState, formData) => {
   }
 };
 
-
-export const addDatainUser = async (userData) => {
-  
+export const addDailyTaskCompleted = async (
+  username,
+  date,
+  accuracy,
+  points
+) => {
   try {
-    connectToDB(); // Establishing connection to the database
-
-    const newUser = new User(userData); // Creating a new User object with userData
-
-    await newUser.save(); // Saving the new user to the database
+    const db = await connectToDB();
+    const user = await User.findOneAndUpdate(
+      { username },
+      {
+        $push: {
+          "performance_data.daily_tasks": {
+            date,
+            daily_tasks_completed: true,
+            accuracy,
+            points,
+          },
+        },
+      },
+      { new: true }
+    );
+    return user;
   } catch (error) {
     console.error("Error adding user data:", error);
   }
 };
+
+export const addNonDailyTaskCompleted = async (
+  username,
+  date,
+  accuracy,
+  points
+) => {
+  try {
+    const db = await connectToDB();
+    const user = await User.findOneAndUpdate(
+      { username },
+      {
+        $push: {
+          "performance_data.non_daily_tasks": {
+            
+            daily_tasks_completed: true,
+            accuracy,
+            points,
+          },
+        },
+      },
+      { new: true }
+    );
+    return user;
+  } catch (error) {
+    console.error("Error adding user data:", error);
+  }
+};
+
+
+
+
+
 
 
 [
@@ -119,15 +164,13 @@ export const addDatainUser = async (userData) => {
           accuracy: 90,
           points: 60,
         },
-       
       ],
       non_daily_tasks: [
         {
-          daily_tasks_completed: false,
+          non_daily_tasks_completed: false,
           accuracy: 0,
           points: 0,
         },
-      
       ],
       progress_history: [
         {
@@ -136,9 +179,7 @@ export const addDatainUser = async (userData) => {
           Overall_tasks_completed: 9,
           Overall_tasks_accuracy: 88,
         },
-      
       ],
     },
   },
-  
-]
+];

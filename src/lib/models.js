@@ -39,7 +39,8 @@ const userSchema = new mongoose.Schema(
       non_daily_tasks: [
         //  tasks outside of daily.
         {
-          daily_tasks_completed: { type: Boolean, default: false },
+          date: { type: Date, default: Date.now },
+          non_daily_tasks: { type: Boolean, default: false },
 
           accuracy: { type: Number, default: 0 },
 
