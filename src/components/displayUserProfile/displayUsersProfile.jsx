@@ -1,4 +1,6 @@
 
+
+
 import {
   FormLabel,
   Input,
@@ -251,7 +253,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
               mt={"-230px"}
               rounded={"xl"}
             >
-              <Chart userByUsername={userByUsername} />
+              {/* <Chart /> */}
             </HStack>
           </Box>
         </HStack>
@@ -259,14 +261,6 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
         <Text>{userByUsername.username}</Text>
 
      
-        {userByUsername.performance_data.daily_tasks.map((task, index) => (
-              <Box key={index} mt="2">
-                <Text>Date: {new Date(task.date).toLocaleDateString()}</Text>
-                <Text>Completed: {task.daily_tasks_completed ? "Yes" : "No"}</Text>
-                <Text>Accuracy: {task.accuracy}%</Text>
-                <Text>Points: {task.points}</Text>
-              </Box>
-            ))}
       
       </VStack> 
 
