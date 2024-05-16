@@ -2,7 +2,6 @@ import React from "react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
 import { VStack, Text } from "@chakra-ui/react";
 import DisplayUsersProfile from "@/components/displayUserProfile/displayUsersProfile";
-import Chart from "@/components/chart/chart";
 
 const GrabUsers = async ({ params }) => {
   console.log(params.id);
@@ -22,11 +21,7 @@ const GrabUsers = async ({ params }) => {
         <ConditionallyRender />
       ) : (
         <>
-          <DisplayUsersProfile
-            id={id}
-          
-            userByUsername={userByUsername}
-          />
+          <DisplayUsersProfile id={id} userByUsername={userByUsername} />
         </>
       )}
     </>

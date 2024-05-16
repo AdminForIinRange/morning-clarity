@@ -1,6 +1,3 @@
-
-
-
 import {
   FormLabel,
   Input,
@@ -26,7 +23,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import Chart from "../chart/chart";
-
+import Test from "../test/test";
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
@@ -68,7 +65,6 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
       title: "Something",
     },
   ];
-
 
   // addDailyTaskCompleted(id, new Date(), 20, 1223230);
 
@@ -253,17 +249,14 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
               mt={"-230px"}
               rounded={"xl"}
             >
-              {/* <Chart /> */}
+              {/* <Test /> */}
+              <Chart userByUsername={userByUsername} />
             </HStack>
           </Box>
         </HStack>
-         <VStack>
-        <Text>{userByUsername.username}</Text>
-
-     
-      
-      </VStack> 
-
+        <VStack>
+          <Text>{userByUsername.username}</Text>
+        </VStack>
       </VStack>
     </>
   );
