@@ -64,6 +64,13 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
     points: task.points
   }));
 
+
+  const individualtasksData = {
+    dates: dailyTasks.map(task => new Date(task.date).toLocaleDateString()),
+    points: dailyTasks.map(task => task.points),
+    accuracy: dailyTasks.map(task => task.accuracy),
+  };
+
   return (
     <>
       <VStack w={"100%"} h={"100%"} p={"10"}>
@@ -199,59 +206,13 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
           </HStack>
         </HStack>
 
-        <HStack w={"100%"} h={"100%"} justify={"center"} align={"center"}>
-          <Box
-            w={"1110px"}
-            h={"300px"}
-            bgColor={"green.200"}
-            rounded={"xl"}
-            p={"5"}
-          >
-            <HStack w={"100%"} h={"100%"} justify={"left"} align={"start"}>
-              {ChartBox.map(({ title }, index) => (
-                <Box
-                  key={index}
-                  w={"12%"}
-                  h={"40px"}
-                  bgColor={"green.400"}
-                  rounded={"xl"}
-                  _hover={{
-                    mx: "10px",
-                    bgColor: "green.300",
-                  }}
-                  transition={"all 0.3s ease-in-out"}
-                >
-                  <HStack
-                    w={"100%"}
-                    h={"100%"}
-                    justify={"center"}
-                    align={"center"}
-                    fontFamily={"raleway"}
-                    cursor={"pointer"}
-                  >
-                    <Text color={"white"} fontWeight={"bold"} fontSize={"14"}>
-                      {title}
-                    </Text>
-                  </HStack>
-                </Box>
-              ))}
-            </HStack>
-
-            <HStack
-              justify="center"
-              align="center"
-              h={"100%"}
-              w={"100%"}
-              mt={"-230px"}
-              rounded={"xl"}
-            >
+      
               {/* <Test /> */}
-              <Chart userName={userByUsername.username} tasksData={tasksData} />
-            </HStack>
-          </Box>
+              <Chart userName={userByUsername.username} tasksData={tasksData} individualtasksData={individualtasksData} />
+            
         
          
-        </HStack>
+   
         <VStack>
           <Text>{userByUsername.username}</Text>
         </VStack>
