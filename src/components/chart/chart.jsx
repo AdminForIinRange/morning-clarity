@@ -1,5 +1,8 @@
 "use client";
 
+
+
+import { VStack, Text, Box} from "@chakra-ui/react";
 import {
   ComposedChart,
   Line,
@@ -12,22 +15,20 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Chart = ({ userByUsername }) => {
-  console.log(userByUsername);
+const Chart = ({ userName, points, accuracy }) => {
+  
   // Ensure userByUsername and performance_data are present
-
-  const data = performance_data.daily_tasks.map((data) => ({
-    date: new Date(data.date).toLocaleDateString(),
-    accuracy: data.accuracy,
-    points: data.points,
-  }));
+console.log(userName, points, accuracy)
 
   return (
+    <>
+
     <ResponsiveContainer width={"98%"} height={265}>
       <ComposedChart
-        data={data}
-        margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
-      >
+
+margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+>
+
         <XAxis dataKey="date" scale="point" stroke="#ffffffff" />
         <YAxis stroke="#ffffffff" />
         <CartesianGrid stroke="#616161" strokeDasharray="5 5" />
@@ -39,9 +40,10 @@ const Chart = ({ userByUsername }) => {
           dataKey="points"
           fill="#ffffffff"
           stroke="#ffffffff"
-        />
+          />
       </ComposedChart>
     </ResponsiveContainer>
+          </>
   );
 };
 

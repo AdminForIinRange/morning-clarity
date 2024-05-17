@@ -10,20 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
 import { addDailyTaskCompleted } from "@/lib/actions";
-import {
-  ComposedChart,
-  Line,
-  Area,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import Chart from "../chart/chart";
-import Test from "../test/test";
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
@@ -66,7 +53,11 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
     },
   ];
 
-  // addDailyTaskCompleted(id, new Date(), 20, 1223230);
+
+  const dates = userByUsername.performance_data.daily_tasks.map(task => new Date(task.date).toLocaleDateString());
+  const points = userByUsername.performance_data.daily_tasks.map(task => task.points);
+  const accuracy = userByUsername.performance_data.daily_tasks.map(task => task.accuracy);
+
 
   return (
     <>
@@ -250,7 +241,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
               rounded={"xl"}
             >
               {/* <Test /> */}
-              <Chart userByUsername={userByUsername} />
+              <Chart userName={userByUsername.username} points={points} accuracy={accuracy} date={dates} />
             </HStack>
           </Box>
         </HStack>
