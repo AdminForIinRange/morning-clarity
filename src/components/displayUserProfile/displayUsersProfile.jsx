@@ -54,10 +54,15 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   ];
 
 
-  const dates = userByUsername.performance_data.daily_tasks.map(task => new Date(task.date).toLocaleDateString());
-  const points = userByUsername.performance_data.daily_tasks.map(task => task.points);
-  const accuracy = userByUsername.performance_data.daily_tasks.map(task => task.accuracy);
+  const dailyTasks = userByUsername.performance_data.daily_tasks;
 
+  // Create an object to hold the data
+  const tasksData = dailyTasks.map(task => ({
+    date: task.date,
+    daily_tasks_completed: task.daily_tasks_completed,
+    accuracy: task.accuracy,
+    points: task.points
+  }));
 
   return (
     <>
@@ -241,9 +246,11 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
               rounded={"xl"}
             >
               {/* <Test /> */}
-              <Chart userName={userByUsername.username} points={points} accuracy={accuracy} date={dates} />
+              <Chart userName={userByUsername.username} tasksData={tasksData} />
             </HStack>
           </Box>
+        
+         
         </HStack>
         <VStack>
           <Text>{userByUsername.username}</Text>

@@ -15,10 +15,10 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-const Chart = ({ userName, points, accuracy }) => {
+const Chart = ({ userName, tasksData}) => {
   
   // Ensure userByUsername and performance_data are present
-console.log(userName, points, accuracy)
+console.log(userName, tasksData)
 
   return (
     <>
