@@ -34,7 +34,7 @@ const Chart = ({ userName, tasksData, individualtasksData }) => {
     },
   ];
 
-  const data = tasksData.map((task) => ({
+  const data = tasksData.map((task) => ({ //dont mak edate on teh same day, is date is same then vpid
     name: new Date(task.date).toLocaleDateString('en-US', {
       day: 'numeric',
       month: 'short',
@@ -101,7 +101,7 @@ const Chart = ({ userName, tasksData, individualtasksData }) => {
         margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name"   />
+        <XAxis dataKey="name" fontSize={"12"}  />
         <YAxis />
         <Tooltip />
         <Legend />
