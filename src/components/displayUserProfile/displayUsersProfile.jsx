@@ -10,7 +10,9 @@ import {
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
 import { addDailyTaskCompleted, RemoveAllPreformanceData} from "@/lib/actions";
+
 import Chart from "../chart/chart";
+import { revalidatePath } from "next/cache";
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
@@ -52,7 +54,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   // Function to add a daily task if not already completed today
 
   
-  const addDailyTaskIfNotExists = async () => {
+  const addDailyTaskIfNotExists = async () => { // Run this func when user has done a daily task secssfuly
     try {
       const today = new Date();
       let todayDate = today.toISOString().substring(0, 10);
@@ -68,20 +70,21 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
                 </HStack>
         )}
 
-      await addDailyTaskCompleted(id, today, 20, 119730);
+      await addDailyTaskCompleted(id, today, 20, 119730); // Replace with your desired accuracy and points 
       console.log("Daily task added successfully.");
-      return (<> <Text>DONE</Text>
-      </>)
+      return (<HStack>
+        <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has Not completed a task today.</Text>
+      </HStack>)
     } catch (error) {
       console.error("Error adding daily task:", error);
     }
   };
 
   // Call the function to add the daily task
-  const checking =  addDailyTaskIfNotExists();
+  const checking = await addDailyTaskIfNotExists();
 
 
-
+  // await RemoveAllPreformanceData(id);
   
   return (
     <>
