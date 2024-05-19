@@ -54,32 +54,43 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   // Function to add a daily task if not already completed today
 
   
-  const addDailyTaskIfNotExists = async () => { // Run this func when user has done a daily task secssfuly
+  const addDailyTaskIfNotExists = async () => {
     try {
       const today = new Date();
-      let todayDate = today.toISOString().substring(0, 10);
-
+      // Adjust the date to Australian Eastern Standard Time (AEST)
+      const options = { timeZone: 'Australia/Sydney', year: 'numeric', month: '2-digit', day: '2-digit' };
+      const todayDate = today.toLocaleDateString('en-CA', options); // 'en-CA' format will be 'YYYY-MM-DD'
+  
+      console.log(todayDate);
+  
       const hasTaskForToday = dailyTasks.some(task => 
-        (typeof task.date === 'string' ? task.date : task.date.toISOString()).substring(0, 10) === todayDate
+        (typeof task.date === 'string' ? task.date : task.date.toISOString().substring(0, 10)) === todayDate
       );
-
+  
       if (hasTaskForToday) {
         console.log("User has already completed a task today.");
-        return (<HStack>
-                  <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has already completed a task today.</Text>
-                </HStack>
-        )}
-
-      await addDailyTaskCompleted(id, today, 20, 119730); // Replace with your desired accuracy and points 
+        return (
+          <HStack>
+            <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has already completed a task today.</Text>
+          </HStack>
+        );
+      }
+  
+      await addDailyTaskCompleted(id, today, 200, 119730); // Replace with your desired accuracy and points 
       console.log("Daily task added successfully.");
-      return (<HStack>
-        <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has Not completed a task today.</Text>
-      </HStack>)
+      return (
+        <HStack>
+          <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has Not completed a task today.</Text>
+        </HStack>
+      );
     } catch (error) {
       console.error("Error adding daily task:", error);
     }
   };
+  
+  // Call the function to add the daily task
 
+  
   // Call the function to add the daily task
   const checking = await addDailyTaskIfNotExists();
 
