@@ -83,31 +83,50 @@ export const login = async (prevState, formData) => {
   }
 };
 
-export const addDailyTaskCompleted = async (
-  username,
-  date,
-  accuracy,
-  points,
-) => {
+
+export const addDailyTaskCompleted = async (username, date, accuracy, points) => {
   try {
     const db = await connectToDB();
-    const user = await User.findOneAndUpdate(
-      { username },
-      {
-        $push: {
-          "performance_data.daily_tasks": {
-            date,
-            daily_tasks_completed: true,
-            accuracy,
-            points,
-          },
-        },
-      },
-      { new: true },
+
+    // Find the user
+    const user = await User.findOne({ username });
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    // Ensure date is a string and extract 'YYYY-MM-DD'
+    let todayDate;
+    if (typeof date === 'string') {
+      todayDate = date.substring(0, 10);
+    } else if (date instanceof Date) {
+      todayDate = date.toISOString().substring(0, 10);
+    } else {
+      throw new TypeError('Invalid date format');
+    }
+
+    // Check if a task with today's date already exists
+    const hasTaskForToday = user.performance_data.daily_tasks.some(task => 
+      (typeof task.date === 'string' ? task.date : task.date.toISOString()).substring(0, 10) === todayDate
     );
-    return user;
+
+    if (hasTaskForToday) {
+      console.log("User has already completed a task today.");
+      return null; // or return some message indicating the task is already completed
+    }
+
+    // If no task for today, proceed to add the new task
+    user.performance_data.daily_tasks.push({
+      date,
+      daily_tasks_completed: true,
+      accuracy,
+      points,
+    });
+
+    const updatedUser = await user.save();
+    return updatedUser;
   } catch (error) {
     console.error("Error adding user data:", error);
+    throw error; // Ensure the error is thrown to handle it appropriately where this function is called
   }
 };
 

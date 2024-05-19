@@ -52,7 +52,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   }));
 
 
-addDailyTaskCompleted(id, new Date(), 20, 972230);
+addDailyTaskCompleted(id, new Date(), 20, 9730);
 
   return (
     <>
