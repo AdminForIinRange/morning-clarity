@@ -9,7 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
-import { addDailyTaskCompleted, RemoveAllPreformanceData} from "@/lib/actions";
+import { addDailyTaskCompleted, RemoveAllPreformanceData } from "@/lib/actions";
 
 import Chart from "../chart/chart";
 import { revalidatePath } from "next/cache";
@@ -44,7 +44,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const dailyTasks = userByUsername.performance_data.daily_tasks;
 
   // Create an object to hold the data
-  const tasksData = dailyTasks.map(task => ({
+  const tasksData = dailyTasks.map((task) => ({
     date: task.date,
     daily_tasks_completed: task.daily_tasks_completed,
     accuracy: task.accuracy,
@@ -53,54 +53,62 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
 
   // Function to add a daily task if not already completed today
 
-  
   const addDailyTaskIfNotExists = async () => {
     try {
       const today = new Date();
       // Adjust the date to Australian Eastern Standard Time (AEST)
-      const options = { timeZone: 'Australia/Sydney', year: 'numeric', month: '2-digit', day: '2-digit' };
-      const todayDate = today.toLocaleDateString('en-CA', options); // 'en-CA' format will be 'YYYY-MM-DD'
-  
+      const options = {
+        timeZone: "Australia/Sydney",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      };
+      const todayDate = today.toLocaleDateString("en-CA", options); // 'en-CA' format will be 'YYYY-MM-DD'
+
       console.log(todayDate);
-  
-      const hasTaskForToday = dailyTasks.some(task => 
-        (typeof task.date === 'string' ? task.date : task.date.toISOString().substring(0, 10)) === todayDate
+
+      const hasTaskForToday = dailyTasks.some(
+        (task) =>
+          (typeof task.date === "string"
+            ? task.date
+            : task.date.toISOString().substring(0, 10)) === todayDate,
       );
-  
+
       if (hasTaskForToday) {
         console.log("User has already completed a task today.");
         return (
           <HStack>
-            <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has already completed a task today.</Text>
+            <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
+              User has already completed a task today.
+            </Text>
           </HStack>
         );
       }
-  
-      await addDailyTaskCompleted(id, today, 200, 119730); // Replace with your desired accuracy and points 
+
+      await addDailyTaskCompleted(id, today, 200, 119730); // Replace with your desired accuracy and points
       console.log("Daily task added successfully.");
       return (
         <HStack>
-          <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has Not completed a task today.</Text>
+          <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
+            User has Not completed a task today.
+          </Text>
         </HStack>
       );
     } catch (error) {
       console.error("Error adding daily task:", error);
     }
   };
-  
+
   // Call the function to add the daily task
 
-  
   // Call the function to add the daily task
   const checking = await addDailyTaskIfNotExists();
 
-
   // await RemoveAllPreformanceData(id);
-  
+
   return (
     <>
       <VStack w={"100%"} h={"100%"} p={"10"}>
-        
         <HStack
           w={"100%"}
           h={"100%"}
@@ -117,10 +125,11 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
             h={"100%"}
             fontFamily={"raleway"}
           >
-            
             {boxes.map(({ title, subheading, bgGradient }, index) => (
               <Box
-                transition={"all 0.5s ease-in-out"}
+                cursor={"pointer"}
+                _hover={{ transform: "scale(1.04)" }}
+                transition={"all 0.3s ease-in-out"}
                 key={index}
                 p={"5"}
                 bgGradient={bgGradient}
@@ -141,12 +150,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
                     </Text>
                   </HStack>
 
-                  <HStack
-                    w={"100%"}
-                    h={"100%"}
-                    justify={"start"}
-                    align={"end"}
-                  >
+                  <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
                     <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
                       {subheading}
                     </Text>
@@ -167,7 +171,9 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
           >
             {boxesTwo.map(({ title, subheading, bgGradient }, index) => (
               <Box
-                transition={"all 0.5s ease-in-out"}
+                cursor={"pointer"}
+                _hover={{ transform: "scale(1.04)" }}
+                transition={"all 0.3s ease-in-out"}
                 key={index}
                 p={"5"}
                 bgGradient={bgGradient}
@@ -188,12 +194,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
                     </Text>
                   </HStack>
 
-                  <HStack
-                    w={"100%"}
-                    h={"100%"}
-                    justify={"start"}
-                    align={"end"}
-                  >
+                  <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
                     <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
                       {subheading}
                     </Text>
@@ -218,7 +219,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
                 textColor={"white"}
                 p={"5"}
               >
-               {checking}
+                {checking}
 
                 <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
                   <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}></Text>
@@ -227,7 +228,6 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
             </Box>
           </HStack>
         </HStack>
-        
 
         <Chart userName={userByUsername.username} tasksData={tasksData} />
 

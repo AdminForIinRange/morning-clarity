@@ -82,31 +82,44 @@ export const login = async (prevState, formData) => {
     return { error: "An error occurred while processing your request" };
   }
 };
-export const addDailyTaskCompleted = async (username, date, accuracy, points) => {
+export const addDailyTaskCompleted = async (
+  username,
+  date,
+  accuracy,
+  points,
+) => {
   try {
     const db = await connectToDB();
 
     // Find the user
     const user = await User.findOne({ username });
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     // Ensure date is a string and extract 'YYYY-MM-DD'
     let todayDate;
-    if (typeof date === 'string') {
+    if (typeof date === "string") {
       todayDate = date.substring(0, 10);
     } else if (date instanceof Date) {
       // Adjust the date to Australian Eastern Standard Time (AEST)
-      const options = { timeZone: 'Australia/Sydney', year: 'numeric', month: '2-digit', day: '2-digit' };
-      todayDate = date.toLocaleDateString('en-CA', options); // 'en-CA' format will be 'YYYY-MM-DD'
+      const options = {
+        timeZone: "Australia/Sydney",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      };
+      todayDate = date.toLocaleDateString("en-CA", options); // 'en-CA' format will be 'YYYY-MM-DD'
     } else {
-      throw new TypeError('Invalid date format');
+      throw new TypeError("Invalid date format");
     }
 
     // Check if a task with today's date already exists
-    const hasTaskForToday = user.performance_data.daily_tasks.some(task => 
-      (typeof task.date === 'string' ? task.date : task.date.toISOString().substring(0, 10)) === todayDate
+    const hasTaskForToday = user.performance_data.daily_tasks.some(
+      (task) =>
+        (typeof task.date === "string"
+          ? task.date
+          : task.date.toISOString().substring(0, 10)) === todayDate,
     );
 
     if (hasTaskForToday) {
@@ -116,7 +129,7 @@ export const addDailyTaskCompleted = async (username, date, accuracy, points) =>
 
     // If no task for today, proceed to add the new task
     user.performance_data.daily_tasks.push({
-      date: todayDate,  // ensure the date is in the correct format
+      date: todayDate, // ensure the date is in the correct format
       daily_tasks_completed: true,
       accuracy,
       points,
@@ -174,4 +187,4 @@ export const RemoveAllPreformanceData = async (username) => {
   } catch (error) {
     console.error("Error adding user data:", error);
   }
-}
+};

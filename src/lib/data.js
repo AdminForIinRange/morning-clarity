@@ -9,7 +9,7 @@ export const fetchUsers = async () => {
   try {
     connectToDB();
     const users = await User.find();
-  
+
     return users;
   } catch (err) {
     console.log(err);
@@ -18,7 +18,6 @@ export const fetchUsers = async () => {
 };
 
 export const fetchUser = async (id) => {
- 
   try {
     connectToDB();
     const user = await User.findById(id);
