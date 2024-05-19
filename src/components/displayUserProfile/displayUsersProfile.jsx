@@ -39,19 +39,6 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
     },
   ];
 
-  const ChartBox = [
-    {
-      title: "Progress",
-    },
-
-    {
-      title: "Accuracy",
-    },
-
-    {
-      title: "Something",
-    },
-  ];
 
 
   const dailyTasks = userByUsername.performance_data.daily_tasks;
@@ -65,11 +52,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   }));
 
 
-  const individualtasksData = {
-    dates: dailyTasks.map(task => new Date(task.date).toLocaleDateString()),
-    points: dailyTasks.map(task => task.points),
-    accuracy: dailyTasks.map(task => task.accuracy),
-  };
+
 
   return (
     <>
@@ -208,7 +191,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
 
       
               {/* <Test /> */}
-              <Chart userName={userByUsername.username} tasksData={tasksData} individualtasksData={individualtasksData} />
+              <Chart userName={userByUsername.username} tasksData={tasksData} />
             
         
          

@@ -16,14 +16,12 @@ import {
 
 
 
-const Chart = ({ userName, tasksData, individualtasksData }) => {
+const Chart = ({ userName, tasksData }) => {
   // Extract data from tasksData
 
   const [dataSet, setDataSet] = useState("Points")
   const ChartBox = [
-    {
-      title: "Progress",
-    },
+
 
     {
       title: "Accuracy",
@@ -40,7 +38,7 @@ const Chart = ({ userName, tasksData, individualtasksData }) => {
       month: 'short',
       year: 'numeric'
     }),
-    value: dataSet === "Points" ? task.points : dataSet === "Accuracy" ?  task.accuracy : task.dates ,
+    value: dataSet === "Points" ? task.points : task.accuracy ,
   }));
   // Ensure userByUsername and performance_data are present
   console.log(userName, tasksData);
