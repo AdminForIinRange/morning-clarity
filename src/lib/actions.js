@@ -157,41 +157,21 @@ export const addNonDailyTaskCompleted = async (
   }
 };
 
-[
-  {
-    username: "john_doe",
-    email: "john.doe@example.com",
-    password: "password123",
-    performance_data: {
-      daily_tasks: [
-        {
-          date: "2024-05-14T08:00:00.000Z",
-          daily_tasks_completed: true,
-          accuracy: 85,
-          points: 50,
+const RemoveAllPreformanceData = async (username) => {
+  try {
+    const db = await connectToDB();
+    const user = await User.findOneAndUpdate(
+      { username },
+      {
+        $set: {
+          "performance_data.daily_tasks": [],
+          "performance_data.non_daily_tasks": [],
         },
-        {
-          date: "2024-05-13T08:00:00.000Z",
-          daily_tasks_completed: true,
-          accuracy: 90,
-          points: 60,
-        },
-      ],
-      non_daily_tasks: [
-        {
-          non_daily_tasks_completed: false,
-          accuracy: 0,
-          points: 0,
-        },
-      ],
-      progress_history: [
-        {
-          Overall_days: 10,
-          Overall_points: 600,
-          Overall_tasks_completed: 9,
-          Overall_tasks_accuracy: 88,
-        },
-      ],
-    },
-  },
-];
+      },
+      { new: true },
+    );
+    return user;
+  } catch (error) {
+    console.error("Error adding user data:", error);
+  }
+}

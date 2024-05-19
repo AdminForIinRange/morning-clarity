@@ -50,6 +50,8 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   }));
 
   // Function to add a daily task if not already completed today
+
+  
   const addDailyTaskIfNotExists = async () => {
     try {
       const today = new Date();
@@ -78,6 +80,9 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   // Call the function to add the daily task
   const checking = await addDailyTaskIfNotExists();
 
+
+
+  
   return (
     <>
       <VStack w={"100%"} h={"100%"} p={"10"}>
