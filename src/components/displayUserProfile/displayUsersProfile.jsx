@@ -39,8 +39,6 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
     },
   ];
 
-
-
   const dailyTasks = userByUsername.performance_data.daily_tasks;
 
   // Create an object to hold the data
@@ -48,15 +46,42 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
     date: task.date,
     daily_tasks_completed: task.daily_tasks_completed,
     accuracy: task.accuracy,
-    points: task.points
+    points: task.points,
   }));
 
+  // Function to add a daily task if not already completed today
+  const addDailyTaskIfNotExists = async () => {
+    try {
+      const today = new Date();
+      let todayDate = today.toISOString().substring(0, 10);
 
-addDailyTaskCompleted(id, new Date(), 20, 9730);
+      const hasTaskForToday = dailyTasks.some(task => 
+        (typeof task.date === 'string' ? task.date : task.date.toISOString()).substring(0, 10) === todayDate
+      );
+
+      if (hasTaskForToday) {
+        console.log("User has already completed a task today.");
+        return (<HStack>
+                  <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>User has already completed a task today.</Text>
+                </HStack>
+        )}
+
+      await addDailyTaskCompleted(id, today, 20, 119730);
+      console.log("Daily task added successfully.");
+      return (<> <Text>DONE</Text>
+      </>)
+    } catch (error) {
+      console.error("Error adding daily task:", error);
+    }
+  };
+
+  // Call the function to add the daily task
+  const checking = await addDailyTaskIfNotExists();
 
   return (
     <>
       <VStack w={"100%"} h={"100%"} p={"10"}>
+        
         <HStack
           w={"100%"}
           h={"100%"}
@@ -73,43 +98,42 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
             h={"100%"}
             fontFamily={"raleway"}
           >
+            
             {boxes.map(({ title, subheading, bgGradient }, index) => (
-              <>
-                <Box
-                  transition={"all 0.5s ease-in-out"}
-                  key={index}
-                  p={"5"}
-                  bgGradient={bgGradient}
-                  rounded={"xl"}
-                  w={"300px"}
-                  h={"250px"}
+              <Box
+                transition={"all 0.5s ease-in-out"}
+                key={index}
+                p={"5"}
+                bgGradient={bgGradient}
+                rounded={"xl"}
+                w={"300px"}
+                h={"250px"}
+              >
+                <VStack
+                  w={"100%"}
+                  h={"100%"}
+                  justify={"top"}
+                  align={"start"}
+                  textColor={"white"}
                 >
-                  <VStack
+                  <HStack>
+                    <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
+                      {title}
+                    </Text>
+                  </HStack>
+
+                  <HStack
                     w={"100%"}
                     h={"100%"}
-                    justify={"top"}
-                    align={"start"}
-                    textColor={"white"}
+                    justify={"start"}
+                    align={"end"}
                   >
-                    <HStack>
-                      <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
-                        {title}
-                      </Text>
-                    </HStack>
-
-                    <HStack
-                      w={"100%"}
-                      h={"100%"}
-                      justify={"start"}
-                      align={"end"}
-                    >
-                      <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
-                        {subheading}
-                      </Text>
-                    </HStack>
-                  </VStack>
-                </Box>
-              </>
+                    <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
+                      {subheading}
+                    </Text>
+                  </HStack>
+                </VStack>
+              </Box>
             ))}
           </VStack>
 
@@ -123,42 +147,40 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
             fontFamily={"raleway"}
           >
             {boxesTwo.map(({ title, subheading, bgGradient }, index) => (
-              <>
-                <Box
-                  transition={"all 0.5s ease-in-out"}
-                  key={index}
-                  p={"5"}
-                  bgGradient={bgGradient}
-                  rounded={"xl"}
-                  w={"300px"}
-                  h={"250px"}
+              <Box
+                transition={"all 0.5s ease-in-out"}
+                key={index}
+                p={"5"}
+                bgGradient={bgGradient}
+                rounded={"xl"}
+                w={"300px"}
+                h={"250px"}
+              >
+                <VStack
+                  w={"100%"}
+                  h={"100%"}
+                  justify={"top"}
+                  align={"start"}
+                  textColor={"white"}
                 >
-                  <VStack
+                  <HStack>
+                    <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
+                      {title}
+                    </Text>
+                  </HStack>
+
+                  <HStack
                     w={"100%"}
                     h={"100%"}
-                    justify={"top"}
-                    align={"start"}
-                    textColor={"white"}
+                    justify={"start"}
+                    align={"end"}
                   >
-                    <HStack>
-                      <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
-                        {title}
-                      </Text>
-                    </HStack>
-
-                    <HStack
-                      w={"100%"}
-                      h={"100%"}
-                      justify={"start"}
-                      align={"end"}
-                    >
-                      <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
-                        {subheading}
-                      </Text>
-                    </HStack>
-                  </VStack>
-                </Box>
-              </>
+                    <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
+                      {subheading}
+                    </Text>
+                  </HStack>
+                </VStack>
+              </Box>
             ))}
           </VStack>
 
@@ -168,7 +190,6 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
             h={"100%"}
             fontFamily={"raleway"}
           >
-            {" "}
             <Box bgColor={"blue.200"} rounded={"xl"} w={"500px"} h={"505px"}>
               <VStack
                 w={"100%"}
@@ -176,10 +197,9 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
                 justify={"top"}
                 align={"start"}
                 textColor={"white"}
+                p={"5"}
               >
-                <HStack>
-                  <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}></Text>
-                </HStack>
+               {checking}
 
                 <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
                   <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}></Text>
@@ -188,14 +208,10 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
             </Box>
           </HStack>
         </HStack>
-
-      
-              {/* <Test /> */}
-              <Chart userName={userByUsername.username} tasksData={tasksData} />
-            
         
-         
-   
+
+        <Chart userName={userByUsername.username} tasksData={tasksData} />
+
         <VStack>
           <Text>{userByUsername.username}</Text>
         </VStack>
@@ -205,25 +221,3 @@ addDailyTaskCompleted(id, new Date(), 20, 9730);
 };
 
 export default DisplayUsersProfile;
-
-{
-  /* <VStack>
-        <Text>{userByUsername.username}</Text>
-
-     
-        {userByUsername.performance_data.daily_tasks.map((task, index) => (
-              <Box key={index} mt="2">
-                <Text>Date: {new Date(task.date).toLocaleDateString()}</Text>
-                <Text>Completed: {task.daily_tasks_completed ? "Yes" : "No"}</Text>
-                <Text>Accuracy: {task.accuracy}%</Text>
-                <Text>Points: {task.points}</Text>
-              </Box>
-            ))}
-        
-      </VStack> */
-}
-
-
-// add daily task completed
-
-// addDailyTaskCompleted(id, new Date(), 20, 1223230);

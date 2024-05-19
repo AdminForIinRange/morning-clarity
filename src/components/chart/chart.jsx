@@ -41,7 +41,7 @@ const Chart = ({ userName, tasksData }) => {
     value: dataSet === "Points" ? task.points : task.accuracy ,
   }));
   // Ensure userByUsername and performance_data are present
-  console.log(userName, tasksData);
+
 
   return (
 
