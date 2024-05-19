@@ -9,7 +9,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { fetchUser, fetchUserByUsername, fetchUsers } from "@/lib/data";
-import { addDailyTaskCompleted } from "@/lib/actions";
+import { addDailyTaskCompleted, RemoveAllPreformanceData} from "@/lib/actions";
 import Chart from "../chart/chart";
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
@@ -78,7 +78,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   };
 
   // Call the function to add the daily task
-  const checking = await addDailyTaskIfNotExists();
+  const checking =  addDailyTaskIfNotExists();
 
 
 

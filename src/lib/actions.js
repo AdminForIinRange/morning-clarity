@@ -157,7 +157,7 @@ export const addNonDailyTaskCompleted = async (
   }
 };
 
-const RemoveAllPreformanceData = async (username) => {
+export const RemoveAllPreformanceData = async (username) => {
   try {
     const db = await connectToDB();
     const user = await User.findOneAndUpdate(
