@@ -52,7 +52,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
   }));
 
 
-
+addDailyTaskCompleted(id, new Date(), 20, 972230);
 
   return (
     <>
@@ -222,3 +222,8 @@ export default DisplayUsersProfile;
         
       </VStack> */
 }
+
+
+// add daily task completed
+
+// addDailyTaskCompleted(id, new Date(), 20, 1223230);
