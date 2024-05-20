@@ -13,6 +13,8 @@ import { addDailyTaskCompleted, RemoveAllPreformanceData } from "@/lib/actions";
 
 import Chart from "../chart/chart";
 import { revalidatePath } from "next/cache";
+import Taskbox from "./taskbox/taskbox";
+import DataBox from "./dataBox/dataBox";
 
 const DisplayUsersProfile = async ({ id, userByUsername }) => {
   const boxes = [
@@ -85,7 +87,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
         );
       }
 
-      await addDailyTaskCompleted(id, today, 200, 119730); // Replace with your desired accuracy and points
+      await addDailyTaskCompleted(id, today, 200, 139730); // Replace with your desired accuracy and points
       console.log("Daily task added successfully.");
       return (
         <HStack>
@@ -108,7 +110,7 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
 
   return (
     <>
-      <VStack w={"100%"} h={"100%"} p={"10"}>
+      <VStack w={"100%"} h={"100%"} py={"2"} px={"10"}>
         <HStack
           w={"100%"}
           h={"100%"}
@@ -116,123 +118,20 @@ const DisplayUsersProfile = async ({ id, userByUsername }) => {
           align={"start"}
           flexWrap={"wrap"}
           wrap={"wrap"}
-          transition={"all 0.5s ease-in-out"}
+          transition={"all 0.3s ease-in-out"}
+          
         >
-          <VStack
-            transition={"all 0.5s ease-in-out"}
-            justify={"center"}
-            align={"center"}
-            h={"100%"}
-            fontFamily={"raleway"}
-          >
-            {boxes.map(({ title, subheading, bgGradient }, index) => (
-              <Box
-                cursor={"pointer"}
-                _hover={{ transform: "scale(1.04)" }}
-                transition={"all 0.3s ease-in-out"}
-                key={index}
-                p={"5"}
-                bgGradient={bgGradient}
-                rounded={"xl"}
-                w={"300px"}
-                h={"250px"}
-              >
-                <VStack
-                  w={"100%"}
-                  h={"100%"}
-                  justify={"top"}
-                  align={"start"}
-                  textColor={"white"}
-                >
-                  <HStack>
-                    <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
-                      {title}
-                    </Text>
-                  </HStack>
+         
 
-                  <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
-                    <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
-                      {subheading}
-                    </Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            ))}
-          </VStack>
+         <Taskbox />
 
-          <VStack
-            transition={"all 0.5s ease-in-out"}
-            justify={"center"}
-            align={"center"}
-            h={"100%"}
-            wrap={"wrap"}
-            flexWrap={"wrap"}
-            fontFamily={"raleway"}
-          >
-            {boxesTwo.map(({ title, subheading, bgGradient }, index) => (
-              <Box
-                cursor={"pointer"}
-                _hover={{ transform: "scale(1.04)" }}
-                transition={"all 0.3s ease-in-out"}
-                key={index}
-                p={"5"}
-                bgGradient={bgGradient}
-                rounded={"xl"}
-                w={"300px"}
-                h={"250px"}
-              >
-                <VStack
-                  w={"100%"}
-                  h={"100%"}
-                  justify={"top"}
-                  align={"start"}
-                  textColor={"white"}
-                >
-                  <HStack>
-                    <Text w={"100%"} fontWeight={"bold"} fontSize={"30"}>
-                      {title}
-                    </Text>
-                  </HStack>
-
-                  <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
-                    <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}>
-                      {subheading}
-                    </Text>
-                  </HStack>
-                </VStack>
-              </Box>
-            ))}
-          </VStack>
-
-          <HStack
-            justify={"center"}
-            align={"center"}
-            h={"100%"}
-            fontFamily={"raleway"}
-          >
-            <Box bgColor={"blue.200"} rounded={"xl"} w={"500px"} h={"505px"}>
-              <VStack
-                w={"100%"}
-                h={"100%"}
-                justify={"top"}
-                align={"start"}
-                textColor={"white"}
-                p={"5"}
-              >
-                {checking}
-
-                <HStack w={"100%"} h={"100%"} justify={"start"} align={"end"}>
-                  <Text w={"70%"} fontWeight={"bold"} fontSize={"30"}></Text>
-                </HStack>
-              </VStack>
-            </Box>
-          </HStack>
+         <DataBox checking={checking} />
         </HStack>
 
         <Chart userName={userByUsername.username} tasksData={tasksData} />
 
         <VStack>
-          <Text>{userByUsername.username}</Text>
+          {/* <Text>{userByUsername.username}</Text> */}
         </VStack>
       </VStack>
     </>

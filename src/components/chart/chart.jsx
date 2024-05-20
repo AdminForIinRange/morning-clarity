@@ -14,7 +14,12 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+
+
 const Chart = ({ userName, tasksData }) => {
+
+
+
   // Extract data from tasksData
 
   const [dataSet, setDataSet] = useState("Points");
@@ -39,11 +44,33 @@ const Chart = ({ userName, tasksData }) => {
   }));
   // Ensure userByUsername and performance_data are present
 
+
+  const CustomTooltip = ({ active, payload, label }) => {
+
+
+  
+    if (active && payload && payload.length) {
+      const Value = payload[0].value.toLocaleString();
+      return (
+        <Box rounded={"lg"} w={"100%"} h={"100%"}  bg={"white"}  p={"3"}>
+          <VStack justify={"center"} align={"center"} w={"100%"} h={"100%"} fontSize={"14"} color={"#212121"}>
+          <Text fontWeight={"bold"}> {dataSet === "Points" ? "Points:" : "Accuracy:"} {Value}</Text>
+          <Text>{label}</Text>
+          </VStack>
+  
+       
+        </Box>
+      );
+    }
+  
+    return null;
+  };
+
   return (
-    <HStack w={"100%"} h={"100%"} justify={"center"} align={"center"}>
+    <HStack w={"100%"} h={"100%"} justify={"center"} align={"center"} mt={"1"}>
       <Box
-        w={"1110px"}
-        h={"300px"}
+        w={"1125px"}
+        h={"310px"}
         bgColor={"green.200"}
         rounded={"xl"}
         p={"5"}
@@ -53,7 +80,7 @@ const Chart = ({ userName, tasksData }) => {
             <Box
               onClick={() => setDataSet(title)}
               key={index}
-              w={"12%"}
+              w={"9%"}
               h={"40px"}
               bgColor={"green.400"}
               rounded={"xl"}
@@ -84,24 +111,23 @@ const Chart = ({ userName, tasksData }) => {
           align="center"
           h={"100%"}
           w={"100%"}
-          mt={"-003px"}
+          mt={"-230px"}
           rounded={"xl"}
         >
-          <ResponsiveContainer width="93%" height={400}>
+          <ResponsiveContainer width="98%" height={235}>
             <ComposedChart
               data={data}
-              margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+              margin={{ top: 20, right: 20, bottom: 20, left: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" fontSize={"12"} />
-              <YAxis />
-              <Tooltip />
-              <Legend />
+              <YAxis fontSize={"12"} />
+              <Tooltip content={<CustomTooltip />} />
+
               <Area
                 type="monotone"
                 dataKey="value"
-                fill="#2D3748"
-                stroke="#ffffff"
+                fill="#68D391"
+                stroke="#48BB78"
               />
             </ComposedChart>
           </ResponsiveContainer>
